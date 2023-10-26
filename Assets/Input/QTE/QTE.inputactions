@@ -1,0 +1,168 @@
+{
+    "name": "QTE",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "bd7b9a14-4c50-4c91-93fa-d8bd338072cb",
+            "actions": [
+                {
+                    "name": "IA_OneClick",
+                    "type": "PassThrough",
+                    "id": "dc72ed0f-dea6-455c-8bb8-2ac92ac40ba2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "IA_TwoClicks",
+                    "type": "Button",
+                    "id": "0dfd2f2c-651d-4c1f-b4a8-1e326013d3ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "IA_Variant_1",
+                    "type": "Button",
+                    "id": "1dd11852-d4ea-4424-b6e2-6b2efff975e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "IA_Variant_2",
+                    "type": "Button",
+                    "id": "25f50368-35b5-49d7-a77b-a9eca0fbb2a1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "IA_Variant_3",
+                    "type": "Button",
+                    "id": "ac5df053-efe0-4ea2-9bce-c0239def8676",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "IA_Variant_4",
+                    "type": "Button",
+                    "id": "f8f6b1ee-6348-44d8-b780-b4bae0cd7d27",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "48644329-7924-4b6a-9362-d03da70e71a2",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "IA_OneClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Click V and B",
+                    "id": "8c2597b8-9daa-4e66-b2fb-615f98bd06c7",
+                    "path": "OneModifier(overrideModifiersNeedToBePressedFirst=true)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IA_TwoClicks",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "3dab75a5-f13e-4293-94e8-197b8e82d662",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "IA_TwoClicks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Binding",
+                    "id": "4503f994-e73b-4b56-937d-6011f1975520",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "IA_TwoClicks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0b2e599c-0d4d-4afb-a7c8-53ff9359c6dc",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IA_Variant_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1796c4b6-9e70-4183-9797-208000af5745",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IA_Variant_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9ff6907-7a7b-433b-bd80-65d984c2583a",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IA_Variant_3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4956e9a9-cdf7-4bd6-8661-d55f5edc2655",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IA_Variant_4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
