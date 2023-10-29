@@ -10,7 +10,7 @@ public class QTEAssistant : MonoBehaviour
     public static QTEAssistant Main { get; private set; }
     public bool InPorgress {  get; private set; }
     public QTEInput Input { get; private set; }
-    public QTEComponent CurrentQTE { get; private set; }
+    public AQTEComponent CurrentQTE { get; private set; }
 
 
     [field: SerializeField] 
@@ -34,7 +34,7 @@ public class QTEAssistant : MonoBehaviour
     }
 
 
-    public void SetQTE(QTEComponent component)
+    public void SetQTE(AQTEComponent component)
     {
         if (InPorgress)
             return;

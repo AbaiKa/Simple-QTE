@@ -33,7 +33,6 @@ public class InteractionComponent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _onInteract.Invoke();
-            Destroy(gameObject);
         }
     }
 

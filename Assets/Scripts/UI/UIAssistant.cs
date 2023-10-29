@@ -12,14 +12,14 @@ public class UIAssistant : MonoBehaviour
 
     [SerializeField] private GameObject _qtePanel;
 
-    private QTEComponent _qteComponent;
+    private AQTEComponent _qteComponent;
 
     private void Start()
     {
         _qtePanel.SetActive(false);
     }
 
-    public void Init(QTEComponent component)
+    public void Init(AQTEComponent component)
     {
         _qteComponent = component;
         _qteComponent.onFinish.AddListener(OnFinishQTE);
@@ -27,7 +27,18 @@ public class UIAssistant : MonoBehaviour
         _qtePanel.SetActive(true);
 
         _variants.Init(component.Variants);
-        _progressBar.Init(component);
+
+        component.TryGetComponent(out TimeQTE timeQTE);
+
+        if (timeQTE != null)
+        {
+            _progressBar.gameObject.SetActive(true);
+            _progressBar.Init(timeQTE);
+        }
+        else
+        {
+            _progressBar.gameObject.SetActive(false);
+        }
     }
 
     private void OnFinishQTE()

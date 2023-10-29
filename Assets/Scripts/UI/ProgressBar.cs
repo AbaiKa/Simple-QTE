@@ -10,10 +10,10 @@ public class ProgressBar : MonoBehaviour
     [SerializeField] private Image _fillImage;
     [SerializeField] private TextMeshProUGUI _txtTimer;
 
-    private QTEComponent _qteComponent;
+    private TimeQTE _qteComponent;
 
     private float _onePercent;
-    public void Init(QTEComponent component)
+    public void Init(TimeQTE component)
     {
         _qteComponent = component;
         _onePercent = component.ResponseTime / 100;
