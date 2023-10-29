@@ -13,6 +13,7 @@ public class QTEComponent : MonoBehaviour
     [field: Tooltip("Варианты")]
     public QTEVariant[] Variants { get; private set; } = new QTEVariant[2];
 
+    [field: Space()]
     [field: SerializeField]
     [field: Tooltip("Время ожидания ответа")]
     [field: Range(0f, 10f)]
@@ -26,7 +27,7 @@ public class QTEComponent : MonoBehaviour
     /// <summary>
     /// Вызывается после выбора варианта или после истечения времени
     /// </summary>
-    public Action onFinish;
+    public UnityEvent onFinish;
 
     /// <summary>
     /// Вызывается когда меняется значение таймера
@@ -116,6 +117,8 @@ public class QTEComponent : MonoBehaviour
         }
 
         onFinish?.Invoke();
+
+        onFinish.RemoveAllListeners();
         StopAllCoroutines();
     }
 

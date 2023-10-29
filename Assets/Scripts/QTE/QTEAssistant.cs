@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class QTEAssistant : MonoBehaviour
 {
     public static QTEAssistant Main { get; private set; }
-
+    public bool InPorgress {  get; private set; }
     public QTEInput Input { get; private set; }
     public QTEComponent CurrentQTE { get; private set; }
 
@@ -36,10 +36,16 @@ public class QTEAssistant : MonoBehaviour
 
     public void SetQTE(QTEComponent component)
     {
+        if (InPorgress)
+            return;
+
         CurrentQTE = component;
 
         UI.Init(component);
 
         CurrentQTE.LaunchQTE();
+
+        InPorgress = true;
+        CurrentQTE.onFinish.AddListener(() => InPorgress = false);
     }
 }

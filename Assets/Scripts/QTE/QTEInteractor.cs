@@ -9,6 +9,9 @@ public class QTEInteractor : MonoBehaviour
     [Range(0, 10)]
     private float _interactionRadius;
 
+    [SerializeField]
+    private GameObject _viewPoint;
+
     private QTEComponent _component;
     private SphereCollider _sphereCollider;
     private Rigidbody _body;
@@ -31,6 +34,12 @@ public class QTEInteractor : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             QTEAssistant.Main.SetQTE(_component);
+
+            _viewPoint.gameObject.SetActive(true);
+            _viewPoint.transform.position = other.transform.position;
+            _viewPoint.transform.rotation = other.transform.rotation;
+
+            _component.onFinish.AddListener(() => _viewPoint.SetActive(false));
         }
     }
 

@@ -154,13 +154,21 @@ namespace StarterAssets
 
         private void Update()
         {
-            if (CutsceneAssistant.Instance.cutscneIsPlaying)
-                return;
-
             _hasAnimator = TryGetComponent(out _animator);
+
+            if (QTEAssistant.Main.InPorgress || CutsceneAssistant.Instance.InProgress)
+            {
+                _animator.SetBool(_animIDGrounded, true);
+                _animator.SetBool(_animIDJump, false);
+                _animator.SetBool(_animIDFreeFall, false);
+                _animator.SetFloat(_animIDSpeed, 0);
+                _animator.SetFloat(_animIDMotionSpeed, 0);
+                return;
+            }
 
             JumpAndGravity();
             GroundedCheck();
+
             Move();
         }
 

@@ -21,12 +21,9 @@ public class UIAssistant : MonoBehaviour
 
     public void Init(QTEComponent component)
     {
-        if (_qteComponent != component)
-        {
-            _qteComponent = component;
-            _qteComponent.onFinish += OnFinishQTE;
-        }
-        
+        _qteComponent = component;
+        _qteComponent.onFinish.AddListener(OnFinishQTE);
+
         _qtePanel.SetActive(true);
 
         _variants.Init(component.Variants);

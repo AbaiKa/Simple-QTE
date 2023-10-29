@@ -21,7 +21,8 @@ public class ProgressBar : MonoBehaviour
     }
     private void OnDestroy()
     {
-        _qteComponent.onTimerValueChanged -= UpdateProgressBar;
+        if (_qteComponent != null)
+            _qteComponent.onTimerValueChanged -= UpdateProgressBar;
     }
 
     public void UpdateProgressBar(float value)
