@@ -44,6 +44,6 @@ public class VariantsAssistant : MonoBehaviour
     {
         string result = component.Remove(0, component.IndexOf('/') + 1);
 
-        return result;
+        return result.ToUpper();
     }
 }
