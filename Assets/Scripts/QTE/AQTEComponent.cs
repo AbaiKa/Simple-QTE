@@ -46,7 +46,10 @@ public abstract class AQTEComponent : MonoBehaviour
         input.onClick.AddListener(Deinit);
 
         if (timeline != null)
+        {
             timeline.BindEventToTimline(Variants);
+            onFinish.AddListener(timeline.StopLoop);
+        }
 
         onFinish.AddListener(() => viewPoint.SetActive(false));
     }
