@@ -32,6 +32,7 @@ public class InteractionComponent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Triggered");
             _onInteract.Invoke();
         }
     }

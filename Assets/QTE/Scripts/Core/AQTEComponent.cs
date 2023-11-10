@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public abstract class AQTEComponent : MonoBehaviour
 {
@@ -11,27 +12,45 @@ public abstract class AQTEComponent : MonoBehaviour
     [field: Header("Base")]
 
     [field: SerializeField]
+    [field: Tooltip("ID варианта по умолчанию (вариант на случай если игрок не успел ответить во время)")]
+    public int DefaultVariantId { get; protected set; } = 0;
+
+    [field: SerializeField]
     [field: Tooltip("Варианты")]
     public QTEVariant[] Variants { get; private set; } = new QTEVariant[2];
-
-    [SerializeField]
-    [Tooltip("ID варианта по умолчанию (вариант на случай если игрок не успел ответить во время)")]
-    public int DefaultVariantId { get; protected set; } = 0;
 
     [SerializeField]
     [Tooltip("Событие сработает после выбора варианта")]
     public UnityEvent onFinish;
 
+    [field: Space()]
     [field: SerializeField]
     [field: Tooltip("Timeline assistant")]
-    protected TimelineAssistant timeline {  get; private set; }
+    protected TimelineAssistant timeline { get; private set; }
+
+    [field: SerializeField]
+    [field: Tooltip("Время начало клипа на таймлайне")]
+    protected float _startClipTime;
+
+    [field: SerializeField]
+    [field: Tooltip("Время конца клипа на таймлайне")]
+    protected float _endClipTime;
 
     [field: SerializeField]
     [field: Tooltip("QTE View point")]
     protected GameObject viewPoint { get; private set;}
 
+    [Space()]
+    [SerializeField] protected float timelineLoopStartTime;
+    [SerializeField] protected float timelineLoopEndTime;
+
     protected QTEInputComponent input { get; private set; } = new QTEInputComponent();
     #endregion
+
+    private void Start()
+    {
+        DisableVariants();
+    }
 
     public void LaunchQTE()
     {
@@ -40,23 +59,40 @@ public abstract class AQTEComponent : MonoBehaviour
     }
     protected virtual void Init()
     {
+        DisableVariants();
         viewPoint.SetActive(true);
 
         input.BindEvents(Variants);
         input.onClick.AddListener(Deinit);
 
-        if (timeline != null)
+        for (int i = 0; i < Variants.Length; i++)
         {
-            timeline.BindEventToTimline(Variants);
-            onFinish.AddListener(timeline.StopLoop);
+            Variants[i].onSelect.AddListener((self) =>
+            {
+                self.Cutscene.SetActive(true);
+                timeline.ActivateOnFinishClipEvent(self.ClipDuration, _endClipTime);
+                timeline.ContinueTimeline(_startClipTime);
+            });
         }
 
         onFinish.AddListener(() => viewPoint.SetActive(false));
     }
+
+    private void DisableVariants()
+    {
+        for (int i = 0; i < Variants.Length; i++)
+        {
+            Variants[i].Cutscene.SetActive(false);
+        }
+    }
     protected virtual void Deinit()
     {
-        input.UnbindEvents();
+        for (int i = 0; i < Variants.Length; i++)
+        {
+            Variants[i].onSelect.RemoveAllListeners();
+        }
 
+        input.UnbindEvents();
         onFinish?.Invoke();
         onFinish.RemoveAllListeners();
     }
@@ -84,8 +120,12 @@ public class QTEVariant
     public string InputActionNameOrId {  get; private set; }
 
     [field: SerializeField]
-    [field: Tooltip("Время на шкале таймлайна где должен оказатся клип после выбора варианта")]
-    public int TimelineValue {  get; private set; }
+    [field: Tooltip("Катсцена")]
+    public GameObject Cutscene {  get; private set; }
+
+    [field: SerializeField]
+    [field: Tooltip("Длина клипа")]
+    public float ClipDuration { get; private set; }
 
     [field: SerializeField]
     [field: Tooltip("Событие которое должно сработать, если выберем этот вариант")]

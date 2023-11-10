@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class StaticQTE : AQTEComponent
 {
-    [SerializeField] private int _startTimeline;
-    [SerializeField] private int _endTimeline;
+    protected override void Init()
+    {
+        base.Init();
+
+        onFinish.AddListener(timeline.StopLoop);
+    }
 
     protected override void Logic()
     {
-        timeline.StartLoop(_startTimeline, _endTimeline);
+        timeline.StartLoop(timelineLoopStartTime, timelineLoopEndTime);
     }
 }

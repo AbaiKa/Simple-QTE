@@ -26,10 +26,12 @@ public class TimeQTE : AQTEComponent
     protected override void Logic()
     {
         StartCoroutine(QTERoutine());
+        timeline.StartLoop(timelineLoopStartTime, timelineLoopEndTime);
     }
     protected override void Deinit()
     {
         base.Deinit();
+        timeline.StopLoop();
         StopAllCoroutines();
     }
     private IEnumerator QTERoutine()
