@@ -70,6 +70,7 @@ public abstract class AQTEComponent : MonoBehaviour
             Variants[i].onSelect.AddListener((self) =>
             {
                 self.Cutscene.SetActive(true);
+                timeline.onFinishClip.AddListener(DisableVariants);
                 timeline.ActivateOnFinishClipEvent(self.ClipDuration, _endClipTime);
                 timeline.ContinueTimeline(_startClipTime);
             });
@@ -81,9 +82,8 @@ public abstract class AQTEComponent : MonoBehaviour
     private void DisableVariants()
     {
         for (int i = 0; i < Variants.Length; i++)
-        {
-            Variants[i].Cutscene.SetActive(false);
-        }
+            if (Variants[i].Cutscene != null)
+                Variants[i].Cutscene.SetActive(false);
     }
     protected virtual void Deinit()
     {

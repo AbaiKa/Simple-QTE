@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5784359907225400396}
   - component: {fileID: 5934191922953048252}
   - component: {fileID: 2114792088854191040}
+  - component: {fileID: 1876954087252287711}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -210,6 +211,19 @@ MonoBehaviour:
   _variants: {fileID: 7018416363877392178}
   _progressBar: {fileID: 6571720600298397859}
   _qtePanel: {fileID: 4381715458973418475}
+--- !u!114 &1876954087252287711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742850160922403475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09588ea3c15490e48b92433d7bb6cc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UI>k__BackingField: {fileID: 2114792088854191040}
 --- !u!1 &1957265405007120935
 GameObject:
   m_ObjectHideFlags: 0

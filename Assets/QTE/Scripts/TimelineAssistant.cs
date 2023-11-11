@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,7 @@ public class TimelineAssistant : MonoBehaviour
     [field: Tooltip("Вызывается после окончания клипа")]
     public UnityEvent onFinishClip;
 
-    [SerializeField] private float _timelineLoopStartTime;
-    [SerializeField] private float _timelineLoopEndTime;
+    [SerializeField] private TimelineLoop[] Loops;
 
     private TimelineAsset _timelineAsset;
     private bool _stopLoop;
@@ -34,11 +34,28 @@ public class TimelineAssistant : MonoBehaviour
     {
         Timeline.time = GetTimelineValue(continueTime);
     }
-    public void StartLoop()
+    public void StartLoop(int id)
     {
-        _stopLoop = false;
-        StartCoroutine(LoopRoutine(GetTimelineValue(_timelineLoopStartTime), GetTimelineValue(_timelineLoopEndTime)));
+        TimelineLoop loop = null;
+
+        for(int i = 0; i < Loops.Length; i++)
+        {
+            if (Loops[i].Id == id)
+            {
+                loop = Loops[i];
+                break;
+            }
+        }
+
+        if (loop == null)
+        {
+            Debug.LogWarning($"По id: {id} не найден TimelineLoop");
+            return;
+        }
+
+        StartLoop(loop.LoopStartTime, loop.LoopEndTime);
     }
+
     public void StartLoop(float startTime, float endTime)
     {
         _stopLoop = false;
@@ -59,6 +76,7 @@ public class TimelineAssistant : MonoBehaviour
     {
         ContinueTimeline(_endTime);
         onFinishClip?.Invoke();
+        onFinishClip.RemoveAllListeners();
     }
 
     private IEnumerator LoopRoutine(float startTime, float endTime)
@@ -83,7 +101,14 @@ public class TimelineAssistant : MonoBehaviour
 
     private float GetTimelineValue(float value)
     {
-        Debug.Log($"Value: {value} Result: {value / 60}");
         return value / 60;
     }
+}
+
+[Serializable]
+public class TimelineLoop
+{
+    [field: SerializeField] public int Id { get; private set; }
+    [field: SerializeField] public float LoopStartTime { get; private set; }
+    [field: SerializeField] public float LoopEndTime { get; private set; }
 }
